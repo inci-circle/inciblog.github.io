@@ -1,6 +1,6 @@
 # Event: NiteCTF 2023
 # Task: ERASS
-
+# Content: ERASS 
 ## Writeup for Challenge "ERASS"
 
 ### Challenge Description:
