@@ -13,7 +13,7 @@
             padding: 20px;
         }
 
-        h1, h2 {
+        h1, h2, h3 {
             color: #61dafb; /* Sky blue heading color */
         }
 
@@ -74,11 +74,11 @@
 
         // Function to parse writeup content (assuming a specific format)
         function parseWriteupContent(data) {
-            // Modify this function based on the actual format of your writeup content
             const lines = data.split('\n');
-            const event = lines[0].replace('# Event: ', '').trim();
-            const task = lines[1].replace('# Task: ', '').trim();
-            const content = lines.slice(2).join('\n').trim();
+            const event = lines.find(line => line.startsWith('# Event:')).replace('# Event:', '').trim();
+            const task = lines.find(line => line.startsWith('# Task:')).replace('# Task:', '').trim();
+            const contentStartIndex = lines.findIndex(line => line.startsWith('## Writeup'));
+            const content = lines.slice(contentStartIndex + 1).join('\n').trim();
             return { event, task, content };
         }
 
