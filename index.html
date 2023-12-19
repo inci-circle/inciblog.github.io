@@ -15,53 +15,13 @@
 
     <h1>CTF Writeups</h1>
 
-    <script>
-        function createWriteupLink(year, event, task, writeup) {
-            var link = `${year}/${event}/${task}/${writeup}.md`;
-            var linkExists = false;
+    <h2>2023</h2>
+    <ul>
+        <li><a href="https://inci-circle.github.io/inciblog.github.io/2023/nitectf2023/erass/writeup1.md">Writeup 1</a></li>
+        <!-- Add more direct links as needed -->
+    </ul>
 
-            // Check if the link exists in the repository
-            // You might need to adapt this based on how you check for existence in your repository
-            // For simplicity, we'll assume a global variable `existingLinks` contains the existing links
-            if (existingLinks.includes(link)) {
-                linkExists = true;
-            }
-
-            // Create list item with the appropriate link or under construction message
-            var listItem = document.createElement('li');
-            var linkElement = document.createElement('a');
-
-            if (linkExists) {
-                linkElement.href = link;
-                linkElement.textContent = `${writeup}`;
-            } else {
-                linkElement.textContent = `${writeup} (Under Construction)`;
-                linkElement.classList.add('under-construction');
-            }
-
-            listItem.appendChild(linkElement);
-            return listItem;
-        }
-
-        function appendWriteups(year, event, task, writeups) {
-            var yearHeading = document.createElement('h2');
-            yearHeading.textContent = year;
-            document.body.appendChild(yearHeading);
-
-            var writeupList = document.createElement('ul');
-
-            writeups.forEach(function(writeup) {
-                var listItem = createWriteupLink(year, event, task, writeup);
-                writeupList.appendChild(listItem);
-            });
-
-            document.body.appendChild(writeupList);
-        }
-
-        // Example usage
-        appendWriteups('2023', 'nitectf2023', 'erass', ['writeup1', 'writeup2']);
-        appendWriteups('2022', 'anotherevent', 'othertask', ['writeup3']);
-    </script>
+    <!-- Add sections for other years as needed -->
 
 </body>
 </html>
