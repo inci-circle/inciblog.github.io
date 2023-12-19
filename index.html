@@ -77,7 +77,7 @@
             const lines = data.split('\n');
             const event = lines.find(line => line.startsWith('# Event:')).replace('# Event:', '').trim();
             const task = lines.find(line => line.startsWith('# Task:')).replace('# Task:', '').trim();
-            const contentStartIndex = lines.findIndex(line => line.startsWith('## Writeup'));
+            const contentStartIndex = lines.findIndex(line => line.startsWith('# Content:') || line.startsWith('## Writeup'));
             const content = lines.slice(contentStartIndex + 1).join('\n').trim();
             return { event, task, content };
         }
