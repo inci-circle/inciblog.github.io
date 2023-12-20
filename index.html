@@ -39,7 +39,16 @@
             float: left;
             width: 80%;
         }
+.horizontal li,
+.vertical li li {
+  display:inline-block;
+  vertical-align:top;
+}
 
+.vertical li,
+.horizontal li li {
+  display:block;
+}
         #writeup-content {
             padding: 20px;
             background-color: #2a2a2a; /* Darker background color for writeup content */
@@ -53,14 +62,15 @@
 
     <div id="sidebar">
         <h2>Navigation</h2>
-        <ul>
-            <li><a href="https://github.com/inci-circle/inciblog.github.io/tree/main/2023/nitectf2023">GitHub Repository</a></li>
+        <ul class="vertical">
+            <h3>archives</h3> 
+            <li><a href="https://github.com/inci-circle/inciblog.github.io/tree/main/2023/nitectf2023">nitectf2023</a></li>
         </ul>
     </div>
 
     <div id="main-content">
         <h2>Writeups</h2>
-        <ul>
+        <ul class="horizontal">
             <li><a href="#" onclick="loadWriteupContent('2023/nitectf2023/erass/writeup1.md')">Writeup 1</a></li>
             <li><a href="#" onclick="loadWriteupContent('2023/nitectf2023/erass/writeup1.md')">Writeup 2</a></li>
  
