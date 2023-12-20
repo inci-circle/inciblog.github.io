@@ -55,36 +55,39 @@
 
     <!-- Include the "marked" library for markdown rendering -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+ <script>
+    function loadWriteupContent(writeupUrl) {
+        fetch(writeupUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${writeupUrl}. Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                const { event, task, content } = parseWriteupContent(data);
+                document.getElementById('event-section').innerHTML = `<h3>Event</h3>${event}`;
+                document.getElementById('task-section').innerHTML = `<h3>Task</h3>${task}`;
+                document.getElementById('content-section').innerHTML = `<h3>Content</h3>${marked(content)}`;
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing content:', error);
+            });
+    }
 
-    <script>
-        // Function to fetch and update content for a specific writeup
-        function loadWriteupContent(writeupUrl) {
-            fetch(writeupUrl)
-                .then(response => response.text())
-                .then(data => {
-                    const { event, task, content } = parseWriteupContent(data);
-                    document.getElementById('event-section').innerHTML = `<h3>Event</h3>${event}`;
-                    document.getElementById('task-section').innerHTML = `<h3>Task</h3>${task}`;
-                    document.getElementById('content-section').innerHTML = `<h3>Content</h3>${marked(content)}`;
-                })
-                .catch(error => {
-                    console.error('Error fetching content:', error);
-                });
-        }
+    function parseWriteupContent(data) {
+        const lines = data.split('\n');
+        const event = lines.find(line => line.startsWith('# Event:')).replace('# Event:', '').trim();
+        const task = lines.find(line => line.startsWith('# Task:')).replace('# Task:', '').trim();
+        const contentStartIndex = lines.findIndex(line => line.startsWith('# Content:') || line.startsWith('## Writeup'));
+        const content = lines.slice(contentStartIndex + 1).join('\n').trim();
+        return { event, task, content };
+    }
 
-        // Function to parse writeup content (assuming a specific format)
-        function parseWriteupContent(data) {
-            const lines = data.split('\n');
-            const event = lines.find(line => line.startsWith('# Event:')).replace('# Event:', '').trim();
-            const task = lines.find(line => line.startsWith('# Task:')).replace('# Task:', '').trim();
-            const contentStartIndex = lines.findIndex(line => line.startsWith('# Content:') || line.startsWith('## Writeup'));
-            const content = lines.slice(contentStartIndex + 1).join('\n').trim();
-            return { event, task, content };
-        }
+    // Example usage
+    loadWriteupContent('https://inci-circle.github.io/inciblog.github.io/2023/nitectf2023/erass/writeup1.md');
+</script>
 
-        // Example usage
-        loadWriteupContent('https://inci-circle.github.io/inciblog.github.io/2023/nitectf2023/erass/writeup1.md');
-    </script>
 
 </body>
 </html>
